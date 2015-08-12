@@ -3,9 +3,10 @@ import {signIn} from 'actions/authenticationActions';
 
 class SignInForm extends React.Component {
   
-  submitForm(e) {
+  async submitForm(e) {
     e.preventDefault();
-    signIn(e);
+    await signIn(e);
+
   }
 
   render() {

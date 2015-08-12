@@ -9,8 +9,10 @@ const resetPassword = tree.select(['views', 'ResetPassword']);
 refreshSession();
 
 async function setupSession(session) {
+  console.log(session)
   authentication.set({sessionData: session});
   localStorage.setItem('sessionData', JSON.stringify(session));
+  tree.commit();
 }
 
 function teardownSession() {
@@ -31,6 +33,7 @@ export async function refreshSession() {
 export async function signIn(data) {
   console.log('login submitted')
   console.log(data)
+  setupSession({user: "gym-owner/gym-profile"}); //Check the user type that comes back from the server and render that route
   // awaitingAuthentication.set(true);
   // teardownSession();
   // try {

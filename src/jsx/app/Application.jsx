@@ -26,18 +26,19 @@ class App extends React.Component {
     var classes = classNames({
       'container-open': this.props.open
     });
+
    var route = _.reduce(_.get(this.context.router, 'state.branch'), function(accum, route) {
      if (route.pageName) {
        accum += route.pageName + ' ';
      }
      return accum;
-   }, '');
+   }, '').trim();
     
     return (
       <Container id='container' className={classes}>
         <Header/>
         {
-          route === 'login' ? <Sidebar/> : null
+          route.trim() !== 'login' ? <Sidebar/> : null
         }
         <Body>{this.props.children}</Body>
         <Footer />

@@ -11,6 +11,17 @@ class Login extends React.Component {
     this.state = {};
   }
 
+  componentWillUpdate(nextProps, nextState) {
+    if (!nextProps || !nextProps.authentication) {
+      return;
+    }
+    const sessionData = nextProps.authentication.sessionData;
+    if (sessionData && !_.get(this.context.router, 'state.isTransitioning')) {
+      const screen = _.get(nextProps, 'authentication.sessionData.user');
+      this.context.router.transitionTo(screen);
+    }
+  }
+
   render() {
     var classes = classNames({
       'container-open': this.props.open
@@ -34,4 +45,13 @@ class Login extends React.Component {
   }
 }
 
-export default Login;
+Login.contextTypes = {
+  router: React.PropTypes.object
+};
+
+export default branch(Login, {
+  cursors: {
+    authentication: 'authentication',
+    awaitingAuthentication: 'awaitingAuthentication'
+  }
+});
