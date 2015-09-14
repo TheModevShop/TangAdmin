@@ -12,7 +12,8 @@ class GymProfile extends React.Component {
     return (
       <div className="profile">
         GYM PROFILE
-        <h2>{this.props.gymProfile}</h2>
+        <img className="gym-main-img" src={"images/" + this.props.gymProfile.profileImg} />
+        <h2>{this.props.gymProfile.name}</h2>
       </div>
     );
   }
