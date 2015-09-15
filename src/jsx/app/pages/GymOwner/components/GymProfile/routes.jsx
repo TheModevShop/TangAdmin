@@ -10,6 +10,5 @@ function getComponents(cb) {
 export default (
   <Route>
     <Route pageName="gym-profile" path="/gym-owner/gym-profile" getComponents={getComponents} />
-    <Redirect from="/gym-owner" to="/gym-owner/gym-profile" />
   </Route>
 );

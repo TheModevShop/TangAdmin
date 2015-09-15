@@ -1,4 +1,4 @@
-webpackJsonp([6],{
+webpackJsonp([9],{
 
 /***/ 178:
 /***/ function(module, exports, __webpack_require__) {
@@ -3078,66 +3078,192 @@ webpackJsonp([6],{
 
 /***/ },
 
-/***/ 299:
+/***/ 305:
 /***/ function(module, exports, __webpack_require__) {
 
-	"use strict";
+	'use strict';
 
-	var _get = __webpack_require__(178)["default"];
+	var _get = __webpack_require__(178)['default'];
 
-	var _inherits = __webpack_require__(192)["default"];
+	var _inherits = __webpack_require__(192)['default'];
 
-	var _createClass = __webpack_require__(203)["default"];
+	var _createClass = __webpack_require__(203)['default'];
 
-	var _classCallCheck = __webpack_require__(206)["default"];
+	var _classCallCheck = __webpack_require__(206)['default'];
 
-	Object.defineProperty(exports, "__esModule", {
+	Object.defineProperty(exports, '__esModule', {
 	  value: true
 	});
 
 	var _baobabReactHigherOrder = __webpack_require__(233);
 
-	var GymProfile = (function (_React$Component) {
-	  _inherits(GymProfile, _React$Component);
+	var Classes = (function (_React$Component) {
+	  _inherits(Classes, _React$Component);
 
-	  function GymProfile() {
-	    _classCallCheck(this, GymProfile);
+	  function Classes() {
+	    _classCallCheck(this, Classes);
 
 	    for (var _len = arguments.length, args = Array(_len), _key = 0; _key < _len; _key++) {
 	      args[_key] = arguments[_key];
 	    }
 
-	    _get(Object.getPrototypeOf(GymProfile.prototype), "constructor", this).apply(this, args);
+	    _get(Object.getPrototypeOf(Classes.prototype), 'constructor', this).apply(this, args);
 	    this.state = {};
 	  }
 
-	  _createClass(GymProfile, [{
-	    key: "render",
+	  _createClass(Classes, [{
+	    key: 'componentDidMount',
+	    value: function componentDidMount() {
+	      $('#transactionsTable').dataTable({
+	        responsive: true,
+	        columnDefs: [{ targets: [-1, -3], className: 'dt-body-right' }]
+	      });
+	    }
+	  }, {
+	    key: 'render',
 	    value: function render() {
-	      console.log(this);
 	      return React.createElement(
-	        "div",
-	        { className: "profile" },
-	        "GYM PROFILE",
-	        React.createElement("img", { className: "gym-main-img", src: "images/" + this.props.gymProfile.profileImg }),
+	        Grid,
+	        null,
 	        React.createElement(
-	          "h2",
+	          Row,
 	          null,
-	          this.props.gymProfile.name
+	          React.createElement(
+	            Col,
+	            { xs: 12 },
+	            React.createElement(
+	              Table,
+	              { id: 'transactionsTable', className: 'display', cellSpacing: '0', width: '100%' },
+	              React.createElement(
+	                'thead',
+	                null,
+	                React.createElement(
+	                  'tr',
+	                  null,
+	                  React.createElement(
+	                    'th',
+	                    null,
+	                    'Name'
+	                  ),
+	                  React.createElement(
+	                    'th',
+	                    null,
+	                    'Position'
+	                  ),
+	                  React.createElement(
+	                    'th',
+	                    null,
+	                    'Office'
+	                  ),
+	                  React.createElement(
+	                    'th',
+	                    null,
+	                    'Age'
+	                  ),
+	                  React.createElement(
+	                    'th',
+	                    null,
+	                    'Start date'
+	                  ),
+	                  React.createElement(
+	                    'th',
+	                    null,
+	                    'Salary'
+	                  )
+	                )
+	              ),
+	              React.createElement(
+	                'tfoot',
+	                null,
+	                React.createElement(
+	                  'tr',
+	                  null,
+	                  React.createElement(
+	                    'th',
+	                    null,
+	                    'Name'
+	                  ),
+	                  React.createElement(
+	                    'th',
+	                    null,
+	                    'Position'
+	                  ),
+	                  React.createElement(
+	                    'th',
+	                    null,
+	                    'Office'
+	                  ),
+	                  React.createElement(
+	                    'th',
+	                    null,
+	                    'Age'
+	                  ),
+	                  React.createElement(
+	                    'th',
+	                    null,
+	                    'Start date'
+	                  ),
+	                  React.createElement(
+	                    'th',
+	                    null,
+	                    'Salary'
+	                  )
+	                )
+	              ),
+	              React.createElement(
+	                'tbody',
+	                null,
+	                React.createElement(
+	                  'tr',
+	                  null,
+	                  React.createElement(
+	                    'td',
+	                    null,
+	                    'Tiger Nixon'
+	                  ),
+	                  React.createElement(
+	                    'td',
+	                    null,
+	                    'System Architect'
+	                  ),
+	                  React.createElement(
+	                    'td',
+	                    null,
+	                    'Edinburgh'
+	                  ),
+	                  React.createElement(
+	                    'td',
+	                    null,
+	                    '61'
+	                  ),
+	                  React.createElement(
+	                    'td',
+	                    null,
+	                    '2011/04/25'
+	                  ),
+	                  React.createElement(
+	                    'td',
+	                    null,
+	                    '$320,800'
+	                  )
+	                )
+	              )
+	            )
+	          )
 	        )
 	      );
 	    }
 	  }]);
 
-	  return GymProfile;
+	  return Classes;
 	})(React.Component);
 
-	exports["default"] = (0, _baobabReactHigherOrder.branch)(GymProfile, {
+	exports['default'] = (0, _baobabReactHigherOrder.branch)(Classes, {
 	  cursors: {
-	    gymProfile: ['gymProfile']
+	    classes: ['classes']
 	  }
 	});
-	module.exports = exports["default"];
+	module.exports = exports['default'];
 
 /***/ }
 

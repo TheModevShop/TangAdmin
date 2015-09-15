@@ -8,50 +8,6 @@ import LoremIpsum from 'global/jsx/loremipsum';
 
 
 
-class ApplicationSidebar extends React.Component {
-  render() {
-    return (
-      <div>
-        <Grid>
-          <Row>
-            <Col xs={12}>
-              <div className='sidebar-header'>PAGES</div>
-              <div className='sidebar-nav-container'>
-                <SidebarNav style={{marginBottom: 0}}>
-                  <SidebarNavItem glyph='icon-fontello-gauge' name='Blank' href='/' />
-                  <SidebarNavItem glyph='icon-feather-mail' name={<span>Menu <BLabel className='bg-darkgreen45 fg-white'>3</BLabel></span>}>
-                    <SidebarNav>
-                      <SidebarNavItem glyph='icon-feather-inbox' name='Inbox' />
-                      <SidebarNavItem glyph='icon-outlined-mail-open' name='Mail' />
-                      <SidebarNavItem glyph='icon-dripicons-message' name='Compose' />
-                    </SidebarNav>
-                  </SidebarNavItem>
-                </SidebarNav>
-              </div>
-            </Col>
-          </Row>
-        </Grid>
-      </div>
-    );
-  }
-}
-
-class DummySidebar extends React.Component {
-  render() {
-    return (
-      <Grid>
-        <Row>
-          <Col xs={12}>
-            <div className='sidebar-header'>DUMMY SIDEBAR</div>
-            <LoremIpsum query='1p' />
-          </Col>
-        </Row>
-      </Grid>
-    );
-  }
-}
-
-
 export default class extends React.Component {
   render() {
     return (
@@ -69,7 +25,14 @@ export default class extends React.Component {
           </Grid>
         </div>
         <div id='sidebar-container'>
-          
+          <div className='sidebar-nav-container'>
+            <SidebarNav>
+              <SidebarNavItem name='Gym Profile' href='/gym-owner/gym-profile' />
+              <SidebarNavItem name='Classes' href='/gym-owner/classes' />
+              <SidebarNavItem name='Coaches' href='/gym-owner/coaches' />
+              <SidebarNavItem name='Transactions' href='/gym-owner/transactions' />
+            </SidebarNav>
+          </div>
         </div>
       </div>
     );
