@@ -90,73 +90,88 @@ webpackJsonp([6],{
 /***/ 182:
 /***/ function(module, exports, __webpack_require__) {
 
-	var $        = __webpack_require__(181)
-	  , core     = __webpack_require__(183)
-	  , $def     = __webpack_require__(184)
-	  , toObject = __webpack_require__(186)
-	  , isObject = __webpack_require__(190);
-	$.each.call(('freeze,seal,preventExtensions,isFrozen,isSealed,isExtensible,' +
-	  'getOwnPropertyDescriptor,getPrototypeOf,keys,getOwnPropertyNames').split(',')
-	, function(KEY, ID){
-	  var fn     = (core.Object || {})[KEY] || Object[KEY]
-	    , forced = 0
-	    , method = {};
-	  method[KEY] = ID == 0 ? function freeze(it){
-	    return isObject(it) ? fn(it) : it;
-	  } : ID == 1 ? function seal(it){
-	    return isObject(it) ? fn(it) : it;
-	  } : ID == 2 ? function preventExtensions(it){
-	    return isObject(it) ? fn(it) : it;
-	  } : ID == 3 ? function isFrozen(it){
-	    return isObject(it) ? fn(it) : true;
-	  } : ID == 4 ? function isSealed(it){
-	    return isObject(it) ? fn(it) : true;
-	  } : ID == 5 ? function isExtensible(it){
-	    return isObject(it) ? fn(it) : false;
-	  } : ID == 6 ? function getOwnPropertyDescriptor(it, key){
-	    return fn(toObject(it), key);
-	  } : ID == 7 ? function getPrototypeOf(it){
-	    return fn(toObject(it, true));
-	  } : ID == 8 ? function keys(it){
-	    return fn(toObject(it));
-	  } : __webpack_require__(191).get;
-	  try {
-	    fn('z');
-	  } catch(e){
-	    forced = 1;
-	  }
-	  $def($def.S + $def.F * forced, 'Object', method);
+	// 19.1.2.6 Object.getOwnPropertyDescriptor(O, P)
+	var toIObject = __webpack_require__(183);
+
+	__webpack_require__(187)('getOwnPropertyDescriptor', function($getOwnPropertyDescriptor){
+	  return function getOwnPropertyDescriptor(it, key){
+	    return $getOwnPropertyDescriptor(toIObject(it), key);
+	  };
 	});
 
 /***/ },
 
 /***/ 183:
-/***/ function(module, exports) {
+/***/ function(module, exports, __webpack_require__) {
 
-	var core = module.exports = {};
-	if(typeof __e == 'number')__e = core; // eslint-disable-line no-undef
+	// to indexed object, toObject with fallback for non-array-like ES3 strings
+	var IObject = __webpack_require__(184)
+	  , defined = __webpack_require__(186);
+	module.exports = function(it){
+	  return IObject(defined(it));
+	};
 
 /***/ },
 
 /***/ 184:
 /***/ function(module, exports, __webpack_require__) {
 
-	var global    = __webpack_require__(185)
-	  , core      = __webpack_require__(183)
+	// indexed object, fallback for non-array-like ES3 strings
+	var cof = __webpack_require__(185);
+	module.exports = 0 in Object('z') ? Object : function(it){
+	  return cof(it) == 'String' ? it.split('') : Object(it);
+	};
+
+/***/ },
+
+/***/ 185:
+/***/ function(module, exports) {
+
+	var toString = {}.toString;
+
+	module.exports = function(it){
+	  return toString.call(it).slice(8, -1);
+	};
+
+/***/ },
+
+/***/ 186:
+/***/ function(module, exports) {
+
+	// 7.2.1 RequireObjectCoercible(argument)
+	module.exports = function(it){
+	  if(it == undefined)throw TypeError("Can't call method on  " + it);
+	  return it;
+	};
+
+/***/ },
+
+/***/ 187:
+/***/ function(module, exports, __webpack_require__) {
+
+	// most Object methods by ES6 should accept primitives
+	module.exports = function(KEY, exec){
+	  var $def = __webpack_require__(188)
+	    , fn   = (__webpack_require__(190).Object || {})[KEY] || Object[KEY]
+	    , exp  = {};
+	  exp[KEY] = exec(fn);
+	  $def($def.S + $def.F * __webpack_require__(191)(function(){ fn(1); }), 'Object', exp);
+	};
+
+/***/ },
+
+/***/ 188:
+/***/ function(module, exports, __webpack_require__) {
+
+	var global    = __webpack_require__(189)
+	  , core      = __webpack_require__(190)
 	  , PROTOTYPE = 'prototype';
-	function ctx(fn, that){
+	var ctx = function(fn, that){
 	  return function(){
 	    return fn.apply(that, arguments);
 	  };
-	}
-	// type bitmap
-	$def.F = 1;  // forced
-	$def.G = 2;  // global
-	$def.S = 4;  // static
-	$def.P = 8;  // proto
-	$def.B = 16; // bind
-	$def.W = 32; // wrap
-	function $def(type, name, source){
+	};
+	var $def = function(type, name, source){
 	  var key, own, out, exp
 	    , isGlobal = type & $def.G
 	    , isProto  = type & $def.P
@@ -186,96 +201,46 @@ webpackJsonp([6],{
 	    exports[key] = exp;
 	    if(isProto)(exports[PROTOTYPE] || (exports[PROTOTYPE] = {}))[key] = out;
 	  }
-	}
+	};
+	// type bitmap
+	$def.F = 1;  // forced
+	$def.G = 2;  // global
+	$def.S = 4;  // static
+	$def.P = 8;  // proto
+	$def.B = 16; // bind
+	$def.W = 32; // wrap
 	module.exports = $def;
-
-/***/ },
-
-/***/ 185:
-/***/ function(module, exports) {
-
-	var global = typeof self != 'undefined' && self.Math == Math ? self : Function('return this')();
-	module.exports = global;
-	if(typeof __g == 'number')__g = global; // eslint-disable-line no-undef
-
-/***/ },
-
-/***/ 186:
-/***/ function(module, exports, __webpack_require__) {
-
-	var ES5Object = __webpack_require__(187)
-	  , defined   = __webpack_require__(189);
-	module.exports = function(it, realString){
-	  return (realString ? Object : ES5Object)(defined(it));
-	};
-
-/***/ },
-
-/***/ 187:
-/***/ function(module, exports, __webpack_require__) {
-
-	// fallback for not array-like ES3 strings
-	var cof     = __webpack_require__(188)
-	  , $Object = Object;
-	module.exports = 0 in $Object('z') ? $Object : function(it){
-	  return cof(it) == 'String' ? it.split('') : $Object(it);
-	};
-
-/***/ },
-
-/***/ 188:
-/***/ function(module, exports) {
-
-	var toString = {}.toString;
-
-	module.exports = function(it){
-	  return toString.call(it).slice(8, -1);
-	};
 
 /***/ },
 
 /***/ 189:
 /***/ function(module, exports) {
 
-	module.exports = function(it){
-	  if(it == undefined)throw TypeError("Can't call method on  " + it);
-	  return it;
-	};
+	// https://github.com/zloirock/core-js/issues/86#issuecomment-115759028
+	var UNDEFINED = 'undefined';
+	var global = module.exports = typeof window != UNDEFINED && window.Math == Math
+	  ? window : typeof self != UNDEFINED && self.Math == Math ? self : Function('return this')();
+	if(typeof __g == 'number')__g = global; // eslint-disable-line no-undef
 
 /***/ },
 
 /***/ 190:
 /***/ function(module, exports) {
 
-	// http://jsperf.com/core-js-isobject
-	module.exports = function(it){
-	  return it !== null && (typeof it == 'object' || typeof it == 'function');
-	};
+	var core = module.exports = {};
+	if(typeof __e == 'number')__e = core; // eslint-disable-line no-undef
 
 /***/ },
 
 /***/ 191:
-/***/ function(module, exports, __webpack_require__) {
+/***/ function(module, exports) {
 
-	// fallback for IE11 buggy Object.getOwnPropertyNames with iframe and window
-	var toString = {}.toString
-	  , toObject = __webpack_require__(186)
-	  , getNames = __webpack_require__(181).getNames;
-
-	var windowNames = typeof window == 'object' && Object.getOwnPropertyNames
-	  ? Object.getOwnPropertyNames(window) : [];
-
-	function getWindowNames(it){
+	module.exports = function(exec){
 	  try {
-	    return getNames(it);
+	    return !!exec();
 	  } catch(e){
-	    return windowNames.slice();
+	    return true;
 	  }
-	}
-
-	module.exports.get = function getOwnPropertyNames(it){
-	  if(windowNames && toString.call(it) == '[object Window]')return getWindowNames(it);
-	  return getNames(toObject(it));
 	};
 
 /***/ },
@@ -337,7 +302,7 @@ webpackJsonp([6],{
 /***/ function(module, exports, __webpack_require__) {
 
 	__webpack_require__(197);
-	module.exports = __webpack_require__(183).Object.setPrototypeOf;
+	module.exports = __webpack_require__(190).Object.setPrototypeOf;
 
 /***/ },
 
@@ -345,7 +310,7 @@ webpackJsonp([6],{
 /***/ function(module, exports, __webpack_require__) {
 
 	// 19.1.3.19 Object.setPrototypeOf(O, proto)
-	var $def = __webpack_require__(184);
+	var $def = __webpack_require__(188);
 	$def($def.S, 'Object', {setPrototypeOf: __webpack_require__(198).set});
 
 /***/ },
@@ -356,17 +321,17 @@ webpackJsonp([6],{
 	// Works with __proto__ only. Old v8 can't work with null proto objects.
 	/* eslint-disable no-proto */
 	var getDesc  = __webpack_require__(181).getDesc
-	  , isObject = __webpack_require__(190)
-	  , anObject = __webpack_require__(199);
-	function check(O, proto){
+	  , isObject = __webpack_require__(199)
+	  , anObject = __webpack_require__(200);
+	var check = function(O, proto){
 	  anObject(O);
 	  if(!isObject(proto) && proto !== null)throw TypeError(proto + ": can't set as prototype!");
-	}
+	};
 	module.exports = {
 	  set: Object.setPrototypeOf || ('__proto__' in {} // eslint-disable-line
 	    ? function(buggy, set){
 	        try {
-	          set = __webpack_require__(200)(Function.call, getDesc(Object.prototype, '__proto__').set, 2);
+	          set = __webpack_require__(201)(Function.call, getDesc(Object.prototype, '__proto__').set, 2);
 	          set({}, []);
 	        } catch(e){ buggy = true; }
 	        return function setPrototypeOf(O, proto){
@@ -383,12 +348,11 @@ webpackJsonp([6],{
 /***/ },
 
 /***/ 199:
-/***/ function(module, exports, __webpack_require__) {
+/***/ function(module, exports) {
 
-	var isObject = __webpack_require__(190);
+	// http://jsperf.com/core-js-isobject
 	module.exports = function(it){
-	  if(!isObject(it))throw TypeError(it + ' is not an object!');
-	  return it;
+	  return it !== null && (typeof it == 'object' || typeof it == 'function');
 	};
 
 /***/ },
@@ -396,11 +360,22 @@ webpackJsonp([6],{
 /***/ 200:
 /***/ function(module, exports, __webpack_require__) {
 
-	// Optional / simple context binding
-	var aFunction = __webpack_require__(201);
+	var isObject = __webpack_require__(199);
+	module.exports = function(it){
+	  if(!isObject(it))throw TypeError(it + ' is not an object!');
+	  return it;
+	};
+
+/***/ },
+
+/***/ 201:
+/***/ function(module, exports, __webpack_require__) {
+
+	// optional / simple context binding
+	var aFunction = __webpack_require__(202);
 	module.exports = function(fn, that, length){
 	  aFunction(fn);
-	  if(~length && that === undefined)return fn;
+	  if(that === undefined)return fn;
 	  switch(length){
 	    case 1: return function(a){
 	      return fn.call(that, a);
@@ -418,7 +393,7 @@ webpackJsonp([6],{
 
 /***/ },
 
-/***/ 201:
+/***/ 202:
 /***/ function(module, exports) {
 
 	module.exports = function(it){
@@ -428,12 +403,12 @@ webpackJsonp([6],{
 
 /***/ },
 
-/***/ 202:
+/***/ 203:
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
 
-	var _Object$defineProperty = __webpack_require__(203)["default"];
+	var _Object$defineProperty = __webpack_require__(204)["default"];
 
 	exports["default"] = (function () {
 	  function defineProperties(target, props) {
@@ -458,14 +433,14 @@ webpackJsonp([6],{
 
 /***/ },
 
-/***/ 203:
+/***/ 204:
 /***/ function(module, exports, __webpack_require__) {
 
-	module.exports = { "default": __webpack_require__(204), __esModule: true };
+	module.exports = { "default": __webpack_require__(205), __esModule: true };
 
 /***/ },
 
-/***/ 204:
+/***/ 205:
 /***/ function(module, exports, __webpack_require__) {
 
 	var $ = __webpack_require__(181);
@@ -475,7 +450,7 @@ webpackJsonp([6],{
 
 /***/ },
 
-/***/ 205:
+/***/ 206:
 /***/ function(module, exports) {
 
 	"use strict";
@@ -490,7 +465,7 @@ webpackJsonp([6],{
 
 /***/ },
 
-/***/ 215:
+/***/ 217:
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -501,7 +476,7 @@ webpackJsonp([6],{
 	 */
 	'use strict';
 
-	var type = __webpack_require__(216);
+	var type = __webpack_require__(218);
 
 	function errorMessage(propName, what) {
 	  return 'prop type `' + propName + '` is invalid; it must be ' + what + '.';
@@ -537,7 +512,7 @@ webpackJsonp([6],{
 
 /***/ },
 
-/***/ 216:
+/***/ 218:
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -548,7 +523,7 @@ webpackJsonp([6],{
 	 */
 	'use strict';
 
-	var Baobab = __webpack_require__(217),
+	var Baobab = __webpack_require__(219),
 	    Cursor = Baobab.Cursor,
 	    Facet = Baobab.Facet;
 
@@ -574,7 +549,7 @@ webpackJsonp([6],{
 
 /***/ },
 
-/***/ 217:
+/***/ 219:
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -583,10 +558,10 @@ webpackJsonp([6],{
 	 *
 	 * Exposes the main library classes.
 	 */
-	var Baobab = __webpack_require__(218),
-	    Cursor = __webpack_require__(219),
-	    Facet = __webpack_require__(223),
-	    helpers = __webpack_require__(221);
+	var Baobab = __webpack_require__(220),
+	    Cursor = __webpack_require__(221),
+	    Facet = __webpack_require__(225),
+	    helpers = __webpack_require__(223);
 
 	// Non-writable version
 	Object.defineProperty(Baobab, 'version', {
@@ -606,7 +581,7 @@ webpackJsonp([6],{
 
 /***/ },
 
-/***/ 218:
+/***/ 220:
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -615,14 +590,14 @@ webpackJsonp([6],{
 	 *
 	 * A handy data tree with cursors.
 	 */
-	var Cursor = __webpack_require__(219),
-	    EventEmitter = __webpack_require__(220),
-	    Facet = __webpack_require__(223),
-	    helpers = __webpack_require__(221),
-	    update = __webpack_require__(225),
-	    merge = __webpack_require__(226),
-	    defaults = __webpack_require__(224),
-	    type = __webpack_require__(222);
+	var Cursor = __webpack_require__(221),
+	    EventEmitter = __webpack_require__(222),
+	    Facet = __webpack_require__(225),
+	    helpers = __webpack_require__(223),
+	    update = __webpack_require__(227),
+	    merge = __webpack_require__(228),
+	    defaults = __webpack_require__(226),
+	    type = __webpack_require__(224);
 
 	var uniqid = (function() {
 	  var i = 0;
@@ -869,7 +844,7 @@ webpackJsonp([6],{
 
 /***/ },
 
-/***/ 219:
+/***/ 221:
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -878,10 +853,10 @@ webpackJsonp([6],{
 	 *
 	 * Nested selection into a baobab tree.
 	 */
-	var EventEmitter = __webpack_require__(220),
-	    helpers = __webpack_require__(221),
-	    defaults = __webpack_require__(224),
-	    type = __webpack_require__(222);
+	var EventEmitter = __webpack_require__(222),
+	    helpers = __webpack_require__(223),
+	    defaults = __webpack_require__(226),
+	    type = __webpack_require__(224);
 
 	/**
 	 * Main Class
@@ -1322,7 +1297,7 @@ webpackJsonp([6],{
 
 /***/ },
 
-/***/ 220:
+/***/ 222:
 /***/ function(module, exports, __webpack_require__) {
 
 	(function() {
@@ -1882,7 +1857,7 @@ webpackJsonp([6],{
 
 /***/ },
 
-/***/ 221:
+/***/ 223:
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(global) {/**
@@ -1891,7 +1866,7 @@ webpackJsonp([6],{
 	 *
 	 * Miscellaneous helper functions.
 	 */
-	var type = __webpack_require__(222);
+	var type = __webpack_require__(224);
 
 	// Make a real array of an array-like object
 	function arrayOf(o) {
@@ -2302,7 +2277,7 @@ webpackJsonp([6],{
 
 /***/ },
 
-/***/ 222:
+/***/ 224:
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -2403,7 +2378,7 @@ webpackJsonp([6],{
 	    var v = value[k];
 
 	    return type.Path(v, ['String', 'Number', 'Object']) ||
-	           v instanceof __webpack_require__(219);
+	           v instanceof __webpack_require__(221);
 	  });
 	};
 
@@ -2415,7 +2390,7 @@ webpackJsonp([6],{
 	    var v = value[k];
 
 	    return typeof v === 'string' ||
-	           v instanceof __webpack_require__(223);
+	           v instanceof __webpack_require__(225);
 	  });
 	};
 
@@ -2424,7 +2399,7 @@ webpackJsonp([6],{
 
 /***/ },
 
-/***/ 223:
+/***/ 225:
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -2433,10 +2408,10 @@ webpackJsonp([6],{
 	 *
 	 * Facets enable the user to define views on a given Baobab tree.
 	 */
-	var EventEmitter = __webpack_require__(220),
-	    Cursor = __webpack_require__(219),
-	    helpers = __webpack_require__(221),
-	    type = __webpack_require__(222);
+	var EventEmitter = __webpack_require__(222),
+	    Cursor = __webpack_require__(221),
+	    helpers = __webpack_require__(223),
+	    type = __webpack_require__(224);
 
 	function Facet(tree, definition, args) {
 	  var self = this;
@@ -2610,7 +2585,7 @@ webpackJsonp([6],{
 
 /***/ },
 
-/***/ 224:
+/***/ 226:
 /***/ function(module, exports) {
 
 	/**
@@ -2645,7 +2620,7 @@ webpackJsonp([6],{
 
 /***/ },
 
-/***/ 225:
+/***/ 227:
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -2655,8 +2630,8 @@ webpackJsonp([6],{
 	 * A handy method to mutate an atom according to the given specification.
 	 * Mostly inspired by http://facebook.github.io/react/docs/update.html
 	 */
-	var helpers = __webpack_require__(221),
-	    type = __webpack_require__(222);
+	var helpers = __webpack_require__(223),
+	    type = __webpack_require__(224);
 
 	// Helpers
 	function makeError(path, message) {
@@ -2818,7 +2793,7 @@ webpackJsonp([6],{
 
 /***/ },
 
-/***/ 226:
+/***/ 228:
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -2827,8 +2802,8 @@ webpackJsonp([6],{
 	 *
 	 * A function used to merge updates in the stack.
 	 */
-	var helpers = __webpack_require__(221),
-	    type = __webpack_require__(222);
+	var helpers = __webpack_require__(223),
+	    type = __webpack_require__(224);
 
 	// Helpers
 	var COMMANDS = ['$unset', '$set', '$apply'];
@@ -2905,15 +2880,15 @@ webpackJsonp([6],{
 
 /***/ },
 
-/***/ 231:
+/***/ 233:
 /***/ function(module, exports, __webpack_require__) {
 
-	module.exports = __webpack_require__(232);
+	module.exports = __webpack_require__(234);
 
 
 /***/ },
 
-/***/ 232:
+/***/ 234:
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -2947,11 +2922,11 @@ webpackJsonp([6],{
 
 	var _react2 = _interopRequireDefault(_react);
 
-	var _utilsTypeJs = __webpack_require__(216);
+	var _utilsTypeJs = __webpack_require__(218);
 
 	var _utilsTypeJs2 = _interopRequireDefault(_utilsTypeJs);
 
-	var _utilsPropTypesJs = __webpack_require__(215);
+	var _utilsPropTypesJs = __webpack_require__(217);
 
 	var _utilsPropTypesJs2 = _interopRequireDefault(_utilsPropTypesJs);
 
@@ -3103,24 +3078,24 @@ webpackJsonp([6],{
 
 /***/ },
 
-/***/ 296:
+/***/ 299:
 /***/ function(module, exports, __webpack_require__) {
 
-	'use strict';
+	"use strict";
 
-	var _get = __webpack_require__(178)['default'];
+	var _get = __webpack_require__(178)["default"];
 
-	var _inherits = __webpack_require__(192)['default'];
+	var _inherits = __webpack_require__(192)["default"];
 
-	var _createClass = __webpack_require__(202)['default'];
+	var _createClass = __webpack_require__(203)["default"];
 
-	var _classCallCheck = __webpack_require__(205)['default'];
+	var _classCallCheck = __webpack_require__(206)["default"];
 
-	Object.defineProperty(exports, '__esModule', {
+	Object.defineProperty(exports, "__esModule", {
 	  value: true
 	});
 
-	var _baobabReactHigherOrder = __webpack_require__(231);
+	var _baobabReactHigherOrder = __webpack_require__(233);
 
 	var GymProfile = (function (_React$Component) {
 	  _inherits(GymProfile, _React$Component);
@@ -3132,22 +3107,23 @@ webpackJsonp([6],{
 	      args[_key] = arguments[_key];
 	    }
 
-	    _get(Object.getPrototypeOf(GymProfile.prototype), 'constructor', this).apply(this, args);
+	    _get(Object.getPrototypeOf(GymProfile.prototype), "constructor", this).apply(this, args);
 	    this.state = {};
 	  }
 
 	  _createClass(GymProfile, [{
-	    key: 'render',
+	    key: "render",
 	    value: function render() {
 	      console.log(this);
 	      return React.createElement(
-	        'div',
-	        { className: 'profile' },
-	        'GYM PROFILE',
+	        "div",
+	        { className: "profile" },
+	        "GYM PROFILE",
+	        React.createElement("img", { className: "gym-main-img", src: "images/" + this.props.gymProfile.profileImg }),
 	        React.createElement(
-	          'h2',
+	          "h2",
 	          null,
-	          this.props.gymProfile
+	          this.props.gymProfile.name
 	        )
 	      );
 	    }
@@ -3156,12 +3132,12 @@ webpackJsonp([6],{
 	  return GymProfile;
 	})(React.Component);
 
-	exports['default'] = (0, _baobabReactHigherOrder.branch)(GymProfile, {
+	exports["default"] = (0, _baobabReactHigherOrder.branch)(GymProfile, {
 	  cursors: {
 	    gymProfile: ['gymProfile']
 	  }
 	});
-	module.exports = exports['default'];
+	module.exports = exports["default"];
 
 /***/ }
 
