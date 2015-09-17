@@ -1,4 +1,4 @@
-webpackJsonp([9],{
+webpackJsonp([10],{
 
 /***/ 178:
 /***/ function(module, exports, __webpack_require__) {
@@ -3078,7 +3078,7 @@ webpackJsonp([9],{
 
 /***/ },
 
-/***/ 305:
+/***/ 312:
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -3097,170 +3097,37 @@ webpackJsonp([9],{
 
 	var _baobabReactHigherOrder = __webpack_require__(233);
 
-	var Classes = (function (_React$Component) {
-	  _inherits(Classes, _React$Component);
+	var AddGym = (function (_React$Component) {
+	  _inherits(AddGym, _React$Component);
 
-	  function Classes() {
-	    _classCallCheck(this, Classes);
+	  function AddGym() {
+	    _classCallCheck(this, AddGym);
 
 	    for (var _len = arguments.length, args = Array(_len), _key = 0; _key < _len; _key++) {
 	      args[_key] = arguments[_key];
 	    }
 
-	    _get(Object.getPrototypeOf(Classes.prototype), 'constructor', this).apply(this, args);
+	    _get(Object.getPrototypeOf(AddGym.prototype), 'constructor', this).apply(this, args);
 	    this.state = {};
 	  }
 
-	  _createClass(Classes, [{
-	    key: 'componentDidMount',
-	    value: function componentDidMount() {
-	      $('#transactionsTable').dataTable({
-	        responsive: true,
-	        columnDefs: [{ targets: [-1, -3], className: 'dt-body-right' }]
-	      });
-	    }
-	  }, {
+	  _createClass(AddGym, [{
 	    key: 'render',
 	    value: function render() {
 	      return React.createElement(
 	        Grid,
 	        null,
-	        React.createElement(
-	          Row,
-	          null,
-	          React.createElement(
-	            Col,
-	            { xs: 12 },
-	            React.createElement(
-	              Table,
-	              { id: 'transactionsTable', className: 'display', cellSpacing: '0', width: '100%' },
-	              React.createElement(
-	                'thead',
-	                null,
-	                React.createElement(
-	                  'tr',
-	                  null,
-	                  React.createElement(
-	                    'th',
-	                    null,
-	                    'Name'
-	                  ),
-	                  React.createElement(
-	                    'th',
-	                    null,
-	                    'Position'
-	                  ),
-	                  React.createElement(
-	                    'th',
-	                    null,
-	                    'Office'
-	                  ),
-	                  React.createElement(
-	                    'th',
-	                    null,
-	                    'Age'
-	                  ),
-	                  React.createElement(
-	                    'th',
-	                    null,
-	                    'Start date'
-	                  ),
-	                  React.createElement(
-	                    'th',
-	                    null,
-	                    'Salary'
-	                  )
-	                )
-	              ),
-	              React.createElement(
-	                'tfoot',
-	                null,
-	                React.createElement(
-	                  'tr',
-	                  null,
-	                  React.createElement(
-	                    'th',
-	                    null,
-	                    'Name'
-	                  ),
-	                  React.createElement(
-	                    'th',
-	                    null,
-	                    'Position'
-	                  ),
-	                  React.createElement(
-	                    'th',
-	                    null,
-	                    'Office'
-	                  ),
-	                  React.createElement(
-	                    'th',
-	                    null,
-	                    'Age'
-	                  ),
-	                  React.createElement(
-	                    'th',
-	                    null,
-	                    'Start date'
-	                  ),
-	                  React.createElement(
-	                    'th',
-	                    null,
-	                    'Salary'
-	                  )
-	                )
-	              ),
-	              React.createElement(
-	                'tbody',
-	                null,
-	                React.createElement(
-	                  'tr',
-	                  null,
-	                  React.createElement(
-	                    'td',
-	                    null,
-	                    'Tiger Nixon'
-	                  ),
-	                  React.createElement(
-	                    'td',
-	                    null,
-	                    'System Architect'
-	                  ),
-	                  React.createElement(
-	                    'td',
-	                    null,
-	                    'Edinburgh'
-	                  ),
-	                  React.createElement(
-	                    'td',
-	                    null,
-	                    '61'
-	                  ),
-	                  React.createElement(
-	                    'td',
-	                    null,
-	                    '2011/04/25'
-	                  ),
-	                  React.createElement(
-	                    'td',
-	                    null,
-	                    '$320,800'
-	                  )
-	                )
-	              )
-	            )
-	          )
-	        )
+	        React.createElement(Row, null)
 	      );
 	    }
 	  }]);
 
-	  return Classes;
+	  return AddGym;
 	})(React.Component);
 
-	exports['default'] = (0, _baobabReactHigherOrder.branch)(Classes, {
+	exports['default'] = (0, _baobabReactHigherOrder.branch)(AddGym, {
 	  cursors: {
-	    classes: ['classes']
+	    addGym: ['addGym']
 	  }
 	});
 	module.exports = exports['default'];

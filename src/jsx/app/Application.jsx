@@ -36,10 +36,8 @@ class App extends React.Component {
     
     return (
       <Container id='container' className={classes}>
+      { route.trim() !== 'login' ? <Sidebar/> : null }
         <Header/>
-        {
-          route.trim() !== 'login' ? <Sidebar/> : null
-        }
         <Body>{this.props.children}</Body>
         <Footer />
       </Container>
@@ -51,5 +49,39 @@ App.contextTypes = {
   router: React.PropTypes.object
 };
 
-
 export default root(App, tree);
+
+// class Container extends React.Component {
+//   constructor(...args) {
+//     super(...args);
+//     this.state = {};
+//   }
+
+//   render() {
+//     var classes = classNames({
+//       'container-open': this.props.open
+//     });
+
+//     return (
+//       <Grid>
+//         <Row>
+//           <Col sm={12}>
+//             <PanelContainer>
+//               <Panel>
+//                 <PanelBody>
+//                   {this.props.children}
+//                 </PanelBody>
+//               </Panel>
+//             </PanelContainer>
+//           </Col>
+//         </Row>
+//       </Grid>
+//     );
+//   }
+// }
+
+// export default branch(Container, {
+//   cursors: {
+//     names: 'names'
+//   }
+// });

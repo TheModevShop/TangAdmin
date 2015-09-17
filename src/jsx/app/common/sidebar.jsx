@@ -6,8 +6,6 @@ import {
 import { Link } from 'react-router';
 import LoremIpsum from 'global/jsx/loremipsum';
 
-
-
 export default class extends React.Component {
   render() {
     return (
@@ -27,10 +25,11 @@ export default class extends React.Component {
         <div id='sidebar-container'>
           <div className='sidebar-nav-container'>
             <SidebarNav>
-              <SidebarNavItem name='Gym Profile' href='/gym-owner/gym-profile' />
-              <SidebarNavItem name='Classes' href='/gym-owner/classes' />
-              <SidebarNavItem name='Coaches' href='/gym-owner/coaches' />
-              <SidebarNavItem name='Transactions' href='/gym-owner/transactions' />
+              <SidebarNavItem name='Gym Profile' href='/gym-profile' />
+              <SidebarNavItem name='Classes' href='/classes' />
+              <SidebarNavItem name='Coaches' href='/coaches' />
+              <SidebarNavItem name='Transactions' href='/transactions' />
+              <SidebarNavItem name='Gyms' href='/gyms' />
             </SidebarNav>
           </div>
         </div>

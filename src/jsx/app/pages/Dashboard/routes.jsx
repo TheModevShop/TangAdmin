@@ -3,12 +3,12 @@ import {Route, Redirect} from 'react-router';
 
 function getComponents(cb) {
   require.ensure([], (require) => {
-    cb(null, require('./GymProfile'));
+    cb(null, require('./Dashboard'));
   });
 }
 
 export default (
   <Route>
-    <Route pageName="gym-profile" path="/gym-owner/gym-profile" getComponents={getComponents} />
+    <Route pageName="dashboard" path="/dashboard" getComponents={getComponents} />
   </Route>
 );

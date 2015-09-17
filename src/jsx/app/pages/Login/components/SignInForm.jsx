@@ -6,7 +6,6 @@ class SignInForm extends React.Component {
   async submitForm(e) {
     e.preventDefault();
     await signIn(e);
-
   }
 
   render() {

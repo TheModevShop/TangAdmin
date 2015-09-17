@@ -3,12 +3,12 @@ import {Route, Redirect} from 'react-router';
 
 function getComponents(cb) {
   require.ensure([], (require) => {
-    cb(null, require('./Classes'));
+    cb(null, require('./Coaches'));
   });
 }
 
 export default (
   <Route>
-    <Route pageName="classes" path="/gym-owner/classes" getComponents={getComponents} />
+    <Route pageName="coaches" path="/coaches" getComponents={getComponents} />
   </Route>
 );
