@@ -4,6 +4,7 @@ import AccountFacet from './facets/accountFacet';
 const sessionData = localStorage.getItem('sessionData');
 
 const tree = new Baobab({
+  allGyms: [23,234234,234234,234234,234234,234234,234234,342234,234,3,3,3,4,4,4,4,4,4],
   gymProfile: {
     name: 'Jons Gym',
     profileImg: 'profile_img.png',

@@ -1,6 +1,5 @@
 import {branch} from 'baobab-react/higher-order';
-
-import GymsTable from 'pages/Components/Tables/GymsTable';
+import MainTable from 'pages/Components/Tables/MainTable/MainTable';
 
 class Gyms extends React.Component {
   constructor(...args) {
@@ -9,14 +8,19 @@ class Gyms extends React.Component {
   }
 
   render() {
+    console.log(this.props.name)
     return (
-       <GymsTable />
+      <div>
+        {this.props.name}
+       <MainTable MainTableData={this.props.gyms} />
+       </div>
     );
   }
 }
 
 export default branch(Gyms, {
   cursors: {
-    gyms: ['gyms']
+    gyms: ['allGyms'],
+    name: ['gymProfile', 'name']
   }
 });

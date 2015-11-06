@@ -1,3 +1,6 @@
+import './table.less';
+import MainTableRow from './components/MainTableRow';
+
 var GymsTable = React.createClass({
   componentDidMount: function() {
     $('#gymsTable')
@@ -38,14 +41,13 @@ var GymsTable = React.createClass({
                            </tr>
                          </thead>
                          <tbody>
-                           <tr>
-                             <td>Tiger Nixon</td>
-                             <td>System Architect</td>
-                             <td>Edinburgh</td>
-                             <td>61</td>
-                             <td>2011/04/25</td>
-                             <td>$320,800</td>
-                           </tr>
+                           {
+                              _.map(this.props.MainTableData, function(item, index) {
+                                return (
+                                  <MainTableRow data={item} />
+                                );
+                              })
+                            }
                          </tbody>
                        </Table>
                      </Col>
