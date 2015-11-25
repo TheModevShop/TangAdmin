@@ -20,8 +20,6 @@ class GymProfile extends React.Component {
   }
 
   renderEditable() {
-
-
     $('.text-field').editable({
       mode: 'inline',
       validate: function(value) {
@@ -48,7 +46,7 @@ class GymProfile extends React.Component {
     return (
         <Grid>
           <Row>
-            <Col xs={12}>
+            <Col xs={12} xsOffset={0} sm={10} smOffset={1} md={8} mdOffset={2}>
               <PanelContainer>
                 <Panel>
                   <PanelHeader className='bg-darkgreen45 fg-white' style={{margin: 0}}>
@@ -64,27 +62,37 @@ class GymProfile extends React.Component {
                     <Grid>
                       <Row>
                         <Col xs={12}>
-                          <form>
-                            <img className="xeditable gym-profile-img" src={"images/" + this.props.gymProfile.profileImg} />
-                            <h2 className="xeditable text-field" data-type='text'>{this.props.gymProfile.name}</h2>
-                            <a href={this.props.gymProfile.link} target="_blank">{this.props.gymProfile.link}</a>
-                            <div className="xeditable gym-phone text-field" data-type='text'>{this.props.gymProfile.phone}</div>
-                            <p className="xeditable gym-description" data-type='textarea'>{this.props.gymProfile.description}</p>
-                            <ul className="xeditable gym-images">
-                              {this.props.gymProfile.images.map(function(image) {
-                                return (
-                                  <li>
-                                      <img src={image.url}/>
-                                  </li>
-                                );
-                              })}
-                            </ul>
-                            <div className="xeditable gym-address">
-                              <span className="xeditable text-field" data-type='text'>{this.props.gymProfile.address.line1}</span>
-                              <span className="xeditable text-field" data-type='text'>{this.props.gymProfile.address.line2}</span>
-                              <span className="xeditable text-field" data-type='text'>{this.props.gymProfile.address.city}</span>
-                              <span className="xeditable state-field" data-type='typeaheadjs'>{this.props.gymProfile.address.state}</span>
-                              <span className="xeditable text-field" data-type='text'>{this.props.gymProfile.address.zip}</span>
+                          <form className="gym-profile">
+                            <div className='images-container'>
+                              <div className="profile-image">
+                                <img className="xeditable gym-profile-img" src={this.props.gymProfile.profileImg} />
+                              </div>
+                              <div className="supp-images">
+                                <ul className="xeditable gym-images">
+                                  {this.props.gymProfile.images.map(function(image) {
+                                    return (
+                                      <li>
+                                          <img src={image.url}/>
+                                      </li>
+                                    );
+                                  })}
+                                </ul>
+                              </div>
+                            </div>
+                            <div className="info-container">
+                              <h2 className="xeditable text-field" data-type='text'>{this.props.gymProfile.name}</h2>
+                              <div className="xeditable gym-address">
+                                <span className="xeditable text-field" data-type='text'>{this.props.gymProfile.address.line1}</span>
+                                <span className="xeditable text-field" data-type='text'>{this.props.gymProfile.address.line2}</span>
+                                <div className="city-state">
+                                  <span className="xeditable text-field" data-type='text'>{this.props.gymProfile.address.city}</span><i>,</i> 
+                                  <span className="xeditable state-field" data-type='typeaheadjs'>{this.props.gymProfile.address.state}</span>
+                                  <span className="xeditable text-field" data-type='text'>{this.props.gymProfile.address.zip}</span>
+                                </div>
+                              </div>
+                              <div className="xeditable gym-phone text-field" data-type='text'>{this.props.gymProfile.phone}</div>
+                              <div className="xeditable gym-link text-field" data-type='text'>{this.props.gymProfile.link}</div>
+                              <p className="xeditable gym-description" data-type='textarea'>{this.props.gymProfile.description}</p>
                             </div>
                           </form>
                         </Col>

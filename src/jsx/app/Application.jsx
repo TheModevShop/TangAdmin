@@ -9,7 +9,7 @@ import Footer from 'common/footer';
 import Baobab from 'baobab';
 import React from 'react';
 import {root} from 'baobab-react/higher-order';
-import tree from 'state'
+import tree from 'state/StateTree';
 
 class Body extends React.Component {
   render() {

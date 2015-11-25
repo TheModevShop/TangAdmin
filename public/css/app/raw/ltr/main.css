@@ -1,5 +1,5 @@
 @charset "UTF-8";
-/*! rubix - v3.0.3 - 2015-11-05 [copyright: SketchPixy LLP, email: support@sketchpixy.com] */
+/*! rubix - v3.0.3 - 2015-11-24 [copyright: SketchPixy LLP, email: support@sketchpixy.com] */
 @charset "UTF-8";
 /* REQUIRED: DO NOT REMOVE */
 /*! normalize.css v3.0.2 | MIT License | git.io/normalize */
@@ -10937,19 +10937,6 @@ ul.messenger.messenger-spinner-active .messenger-spinner .messenger-spinner {
   z-index: 9990;
   /* should be less than select2 dropdown z-index to close dropdown first when click */ }
 
-.editable-click,
-a.editable-click,
-a.editable-click:hover {
-  text-decoration: none;
-  border-bottom: dashed 1px #0088cc; }
-
-.editable-click.editable-disabled,
-a.editable-click.editable-disabled,
-a.editable-click.editable-disabled:hover {
-  color: #585858;
-  cursor: default;
-  border-bottom: none; }
-
 .editable-empty, .editable-empty:hover, .editable-empty:focus {
   font-style: italic;
   color: #DD1144;
@@ -16564,6 +16551,92 @@ body:last-child .blueimp-gallery-playing > .play-pause {
   width: 30px; }
 
 /* IMPORT PAGE STYLES */
+form.gym-profile {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  padding: 30px 0; }
+  form.gym-profile .images-container {
+    -webkit-box-flex: 1;
+    -webkit-flex: 1 0 0;
+        -ms-flex: 1 0 0;
+            flex: 1 0 0;
+    padding-right: 10px; }
+    form.gym-profile .images-container .profile-image {
+      width: 100%; }
+      form.gym-profile .images-container .profile-image img {
+        width: 100%; }
+    form.gym-profile .images-container .supp-images {
+      margin-top: 10px; }
+      form.gym-profile .images-container .supp-images ul {
+        list-style: none;
+        margin: 0;
+        padding: 0;
+        display: -webkit-box;
+        display: -webkit-flex;
+        display: -ms-flexbox;
+        display: flex;
+        -webkit-box-align: center;
+        -webkit-align-items: center;
+            -ms-flex-align: center;
+                align-items: center;
+        -webkit-box-pack: center;
+        -webkit-justify-content: center;
+            -ms-flex-pack: center;
+                justify-content: center;
+        -webkit-box-orient: horizontal;
+        -webkit-box-direction: normal;
+        -webkit-flex-direction: row;
+            -ms-flex-direction: row;
+                flex-direction: row;
+        -webkit-flex-wrap: wrap;
+            -ms-flex-wrap: wrap;
+                flex-wrap: wrap;
+        -webkit-flex-flow: row wrap;
+            -ms-flex-flow: row wrap;
+                flex-flow: row wrap;
+        -webkit-align-content: flex-end;
+            -ms-flex-line-pack: end;
+                align-content: flex-end; }
+        form.gym-profile .images-container .supp-images ul li {
+          width: 50%;
+          padding-bottom: 10px; }
+          form.gym-profile .images-container .supp-images ul li:nth-child(odd) {
+            padding-right: 5px; }
+          form.gym-profile .images-container .supp-images ul li:nth-child(2n) {
+            padding-left: 5px; }
+          form.gym-profile .images-container .supp-images ul li img {
+            width: 100%; }
+  form.gym-profile .info-container {
+    -webkit-box-flex: 2;
+    -webkit-flex: 2 0 0;
+        -ms-flex: 2 0 0;
+            flex: 2 0 0;
+    padding-left: 10px;
+    font-size: 16px; }
+    form.gym-profile .info-container h2 {
+      margin: 0 0 15px 0;
+      font-size: 36px; }
+    form.gym-profile .info-container .gym-address {
+      margin-bottom: 10px; }
+      form.gym-profile .info-container .gym-address > span {
+        line-height: 22px;
+        display: block; }
+      form.gym-profile .info-container .gym-address .city-state {
+        line-height: 22px; }
+        form.gym-profile .info-container .gym-address .city-state span {
+          display: inline-block;
+          margin-left: 5px;
+          line-height: 22px; }
+          form.gym-profile .info-container .gym-address .city-state span:first-child {
+            margin-left: 0; }
+    form.gym-profile .info-container .gym-phone,
+    form.gym-profile .info-container .gym-link {
+      margin-bottom: 5px; }
+    form.gym-profile .info-container p {
+      margin: 0; }
+
 /* IMPORT PRINT STYLES */
 @media print {
   #sidebar {

@@ -1,6 +1,6 @@
 import xhr from 'utility/xhr';
 import _ from 'lodash';
-import tree from 'state';
+import tree from '../StateTree';
 
 export default class RESTLoader {
 
@@ -13,10 +13,11 @@ export default class RESTLoader {
   _get(id, ...args) {
     const {
       errorTransformer,
-      successTransformer
+      successTransformer,
+      timeout
     } = this.options;
     this.loading = true;
-    return xhr('GET', this.options.getResourceUrl(id, ...args))
+    return xhr('GET', this.options.getResourceUrl(id, ...args), null, {timeout})
       .then((data) => {
         if (_.isFunction(successTransformer)) {
           data = successTransformer(data, this.cursor.get());
@@ -54,7 +55,7 @@ export default class RESTLoader {
 
     // Return current item with loading mixin
     return _.assign({}, items, {
-      $isLoading: true
+      isLoading: true
     });
   }
 

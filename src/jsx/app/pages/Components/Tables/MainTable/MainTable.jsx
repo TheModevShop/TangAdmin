@@ -3,8 +3,7 @@ import MainTableRow from './components/MainTableRow';
 
 var GymsTable = React.createClass({
   componentDidMount: function() {
-    $('#gymsTable')
-      .dataTable({
+    $('#gymsTable').dataTable({
         responsive: true
     });
   },
@@ -42,7 +41,7 @@ var GymsTable = React.createClass({
                          </thead>
                          <tbody>
                            {
-                              _.map(this.props.MainTableData, function(item, index) {
+                              _.map(this.props.gymList, function(item, index) {
                                 return (
                                   <MainTableRow data={item} />
                                 );

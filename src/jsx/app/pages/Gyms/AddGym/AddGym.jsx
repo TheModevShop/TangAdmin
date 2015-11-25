@@ -10,7 +10,7 @@ class AddGym extends React.Component {
     return (
       <Grid>
         <Row>
-          <Col xs={8} mdOffset={2}>
+          <Col xs={12} xsOffset={0} sm={10} smOffset={1} md={8} mdOffset={2}>
             <PanelContainer noOverflow controlStyles='bg-green fg-white'>
               <Panel>
                 <PanelHeader className='bg-green fg-white'>
@@ -96,6 +96,6 @@ class AddGym extends React.Component {
 
 export default branch(AddGym, {
   cursors: {
-    addGym: ['addGym']
+    addGym: ['views', 'AddGym']
   }
 });

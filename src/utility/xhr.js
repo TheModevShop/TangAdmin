@@ -1,40 +1,55 @@
-// import Promise from 'bluebird';
+import BPromise from 'bluebird';
+import request from 'superagent';
 
-// export default function(method, url, data, options) {
-//   options = options || {};
-//   return new Promise((resolve, reject) => {
-//     method = method || 'GET';
-//     let xhr = new XMLHttpRequest();
-//     if ('withCredentials' in xhr) {
-//       // XHR for Chrome/Firefox/Opera/Safari.
-//       xhr.withCredentials = options.withCredentials !== undefined ? options.withCredentials : true;
-//       xhr.open(method, url, true);
-//     } else if (typeof XDomainRequest !== 'undefined') {
-//       // XDomainRequest for IE.
-//       xhr = new XDomainRequest();
-//       xhr.open(method, url);
-//     }
-//     xhr.setRequestHeader('content-type', 'application/json');
-//     xhr.onload = (e) => {
-//       if (xhr.status >= 400) {
-//         reject({
-//           status: e.target.status,
-//           responseText: e.target.responseText
-//         });
-//       }
-//       try {
-//         resolve(JSON.parse(xhr.responseText));
-//       } catch(e) {
-//         reject('Error parsing json');
-//       }
-//     };
-//     xhr.onerror = () => {
-//       reject('Error');
-//     };
-//     if (data) {
-//       xhr.send(JSON.stringify(data));
-//     } else {
-//       xhr.send();
-//     }
-//   });
-// }
+export default function(method, url, data, options) {
+  const sessionData = localStorage.getItem('sessionData');
+  options = options || {};
+  method = method || 'GET';
+  return new BPromise((resolve, reject) => {
+    if (method === 'POST') {
+      return request
+        .post(url)
+        .send(data)
+        .set('Content-Type', 'application/x-www-form-urlencoded')
+        .set('x-access-token', sessionData)
+        .end(function(err, res) {
+          if (err) {
+            reject(err)
+          } else {
+            resolve(res)
+          }
+      });
+    };
+
+    if (method === 'GET') {
+       request
+        .get(url)
+        .set('Content-Type', 'application/x-www-form-urlencoded')
+        .set('x-access-token', 'sessionData')
+        .end(function(err, res) {
+          if (err) {
+          	console.log(err)
+            reject(err)
+          } else {
+          	console.log(res)
+            resolve(res)
+          }
+      });
+    };
+
+    if (method === 'PUT') {
+       request
+        .put(url)
+        .send(data)
+        .set('Content-Type', 'application/x-www-form-urlencoded')
+        .set('x-access-token', sessionData)
+        .end(function(err, res) {
+          if (err) {
+            reject(err)
+          } else {
+            resolve(res)
+          }
+      });
+    };
+  });
+}

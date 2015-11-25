@@ -171,6 +171,10 @@ var webpackConfig = function(withHotLoader) {
     cache: true,
     module: {
       loaders: [
+        {
+          test: /\.json$/,
+          loader: "json-loader"
+        },
         {test: /\.txt$/,
          exclude: /(node_modules|bower_components)/,
          loaders: ['babel-loader']},

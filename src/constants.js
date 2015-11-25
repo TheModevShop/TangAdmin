@@ -1,1 +1,1 @@
-export const SOME_CONSTANT = 'SOME_CONSTANT';
+export const BASE = 'http://localhost:8080/v1';

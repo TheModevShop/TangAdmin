@@ -1,6 +1,5 @@
-import tree from 'state';
+import tree from 'state/StateTree';
 import xhr from 'utility/xhr';
-
 const BASE = 'www.someurl.com/api/v1'
 const authentication = tree.select('authentication');
 const awaitingAuthentication = tree.select('awaitingAuthentication');

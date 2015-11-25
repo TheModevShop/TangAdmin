@@ -1,10 +1,10 @@
 import _ from 'lodash';
-import RESTLoader from 'state/loaders/RESTLoader';
+import RESTLoader from '../loaders/RESTLoader';
 import {BASE} from 'constants';
 
 const loader = new RESTLoader({
   getResourceUrl: (id) => {
-    return `${BASE}/email`;
+    return `${BASE}/account`;
   }
 });
 

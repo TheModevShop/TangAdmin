@@ -1,0 +1,77 @@
+form.gym-profile {
+	display: flex;
+	padding: 30px 0;
+	.images-container {
+		flex: 1 0 0;
+		padding-right: 10px;
+		.profile-image {
+			width: 100%;
+			img {
+				width: 100%;
+			}
+		}
+		.supp-images {
+			margin-top: 10px;
+			ul {
+				list-style: none;
+				margin: 0;
+				padding: 0;
+				display: flex;
+				align-items: center;
+				justify-content: center;
+				flex-direction: row;
+				flex-wrap: wrap;
+				flex-flow: row wrap;
+				align-content: flex-end;
+				li {
+					width: 50%;
+					padding-bottom: 10px;
+					&:nth-child(odd) {
+						padding-right: 5px;
+					}
+					&:nth-child(2n) {
+						padding-left: 5px;
+					}
+					img {
+						width: 100%;
+					}
+				}
+			}
+		}
+	}
+	.info-container {
+		flex: 2 0 0;
+		padding-left: 10px;
+		font-size: 16px;
+		h2 {
+			margin: 0 0 15px 0;
+			font-size: 36px;
+		}
+		.gym-address {
+			margin-bottom: 10px;
+			> span {
+				line-height: 22px;
+				display: block;
+			}
+			.city-state {
+				line-height: 22px;
+				span {
+					display: inline-block;
+					margin-left: 5px;
+					line-height: 22px;
+					&:first-child {
+						margin-left: 0;
+					}
+				}
+			}
+		}
+		.gym-phone,
+		.gym-link {
+			margin-bottom: 5px;
+		}
+		p {
+			margin: 0;
+		}
+	}
+}
+
